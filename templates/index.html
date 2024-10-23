@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KDB+ Chat Interface</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/highlight.min.js"></script>
+</head>
+<body>
+    <div id="debug-info" style="display: none;"></div>
+    <div id="container" class="container">
+        <div id="main-window" class="window">
+            <div class="tab-bar">
+                <div class="tab active" draggable="true" data-panel="chat">Chat<span class="tab-close">×</span></div>
+                <div class="tab" draggable="true" data-panel="challenges">Challenges<span class="tab-close">×</span></div>
+                <button class="new-tab-button" onclick="showNewTabModal(this.closest('.window'))">+</button>
+                <button class="new-window-button" onclick="splitWindow()">◫</button>
+            </div>
+            <div class="content-area">
+                <div id="chat" class="panel active">
+                    <div id="chat-messages"></div>
+                    <input type="text" id="user-input" placeholder="Type your message...">
+                    <button onclick="sendMessage()">Send</button>
+                </div>
+                <div id="challenges" class="panel">
+                    <h3 id="challenge-title"></h3>
+                    <div id="challenge-description"></div>
+                    <textarea id="solution" rows="5" cols="50"></textarea>
+                    <button onclick="submitSolution()">Submit Solution</button>
+                    <h4>Test Cases:</h4>
+                    <div id="test-cases"></div>
+                    <h4>Feedback:</h4>
+                    <pre id="challenge-output"></pre>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="newTabModal" class="modal">
+        <div class="modal-content">
+            <h2>Choose tab content:</h2>
+            <button class="modal-button" onclick="createNewTab('chat')">Chat</button>
+            <button class="modal-button" onclick="createNewTab('challenges')">Challenges</button>
+        </div>
+    </div>
+
+    <button id="debug-toggle" onclick="toggleDebugInfo()">Toggle Debug Info</button>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
